@@ -16,6 +16,7 @@ const cors    = require('cors');
 const path    = require('path');
 
 const webhookRouter      = require('./src/webhook');
+const adminRouter        = require('./src/adminRouter');
 const { startScheduler } = require('./src/followUpScheduler');
 
 const app  = express();
@@ -35,6 +36,7 @@ app.use('/products', express.static(path.join(__dirname, 'GentsStyling')));
 
 // ── Routes ─────────────────────────────────────────────────────────────────────
 app.use('/webhook', webhookRouter);
+app.use('/admin',   adminRouter);
 
 // Health check
 app.get('/', (req, res) => {

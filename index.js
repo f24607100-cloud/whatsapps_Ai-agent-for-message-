@@ -29,6 +29,10 @@ app.use(express.json());
 // Access via: http://localhost:3001/media/brown_blazer.jpg
 app.use('/media', express.static(path.join(__dirname, 'media')));
 
+// Serve GentsStyling product images (from the website folder)
+// Access via: https://your-ngrok.app/products/brown_blazer.jpg
+app.use('/products', express.static(path.join(__dirname, 'GentsStyling')));
+
 // ── Routes ─────────────────────────────────────────────────────────────────────
 app.use('/webhook', webhookRouter);
 

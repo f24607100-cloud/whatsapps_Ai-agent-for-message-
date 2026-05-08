@@ -23,13 +23,12 @@ const MEDIA_DIR = path.join(__dirname, '..', 'media');
 const PUBLIC_URL = process.env.PUBLIC_URL || `http://localhost:${process.env.PORT || 3001}`;
 
 /**
- * Given a product object (from Supabase or fallback catalogue),
- * return a publicly accessible image URL.
+ * Given a product object, return a publicly accessible image URL.
  *
  * Priority:
- * 1. product.image_url (Supabase hosted)
- * 2. /media/<product.image> served locally
- * 3. GentsStyling website folder (GentsStyling/<product.image>)
+ * 1. product.image_url (Supabase hosted full URL)
+ * 2. /products/<filename> served from GentsStyling folder
+ * 3. /media/<filename> served from local media folder
  */
 function getProductImageUrl(product) {
   if (!product) return null;
@@ -39,13 +38,12 @@ function getProductImageUrl(product) {
     return product.image_url;
   }
 
-  // 2. Local media folder
+  // 2. Use GentsStyling folder (via /products route)
   const filename = product.image || product.image_url || '';
   if (filename) {
-    return `${PUBLIC_URL}/media/${encodeURIComponent(filename)}`;
+    return `${PUBLIC_URL}/products/${encodeURIComponent(filename)}`;
   }
 
-  // 3. No image available
   return null;
 }
 

@@ -112,10 +112,50 @@ async function handleIncomingMessage(msg, value) {
   // ── Process with AI ────────────────────────────────────────────────────────
   const { reply, imagesToSend, dealClosed, dealData } = await agent.processMessage(phone, userText);
 
-  // ── Log deal if closed ─────────────────────────────────────────────────────
+  // ── Log deal + Schedule instant follow-up (DEV) ───────────────────────────
   if (dealClosed && dealData) {
     console.log('[webhook] 🎉 Deal closed for', phone, dealData);
     await logDeal(dealData).catch(err => console.error('[webhook] Deal log error:', err));
+
+    // DEV MODE: Send follow-up after 1 minute (for testing/demo)
+    // PRODUCTION: node-cron runs every day at 10am PKT (10-15 days delay)
+    if (process.env.NODE_ENV === 'development') {
+      const FOLLOW_UP_DELAY = 60 * 1000; // 1 minute
+      console.log(`[webhook] ⏱️ DEV MODE — Follow-up scheduled in 1 minute for ${phone}`);
+
+      setTimeout(async () => {
+        try {
+          const kb = await agent.getKnowledge();
+          const customerName = dealData.name?.split(' ')[0] || 'bhai';
+
+          // Pick a different product than what was ordered (new offer)
+          const newProduct = kb.products.find(p =>
+            !dealData.product?.toLowerCase().includes(p.name?.toLowerCase().split(' ')[0])
+          ) || kb.products[0];
+
+          const imageUrl = newProduct ? getProductImageUrl(newProduct) : null;
+          const offerMsg =
+            `Salaam ${customerName} bhai! 🎉 Aapki order ke liye shukriya!\n\n` +
+            `Aaj hamare paas ek special offer bhi hai — yeh dekhein! ` +
+            `Sirf limited time ke liye available hai. Interested hain?`;
+
+          console.log(`[webhook] 📲 Sending follow-up to ${phone}...`);
+
+          // Send new product image
+          if (imageUrl) {
+            await sendImage(phone, imageUrl, `${newProduct.name} — Special Offer $${newProduct.price}`);
+            await _sleep(1000);
+          }
+
+          // Send offer text
+          await sendText(phone, offerMsg);
+          console.log(`[webhook] ✅ Follow-up sent to ${phone}`);
+
+        } catch (err) {
+          console.error('[webhook] Follow-up error:', err.message);
+        }
+      }, FOLLOW_UP_DELAY);
+    }
   }
 
   // ── Send product images (before text reply) ─────────────────────────────
@@ -141,6 +181,7 @@ async function handleIncomingMessage(msg, value) {
     await sendText(phone, reply);
   }
 }
+
 
 function _sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));

@@ -22,6 +22,7 @@ const agent         = require('./agent');
 const { logDeal }   = require('./dealLogger');
 const { sendText, sendImage, markAsRead } = require('./whatsappSender');
 const { getProductImageUrl, findProduct } = require('./mediaHandler');
+const { transcribeVoiceMessage } = require('./voiceHandler');
 
 // ── GET /webhook — Verification ───────────────────────────────────────────────
 router.get('/', (req, res) => {
@@ -75,16 +76,26 @@ async function handleIncomingMessage(msg, value) {
 
   // Extract text content
   let userText = '';
+  let isVoice  = false;
+
   if (msg.type === 'text') {
     userText = msg.text?.body || '';
-  } else if (msg.type === 'image') {
-    userText = '[Customer sent an image]';
+
   } else if (msg.type === 'audio') {
-    userText = '[Customer sent a voice message]';
+    // 🎤 Voice message — transcribe with Whisper
+    isVoice = true;
+    const mediaId  = msg.audio?.id;
+    const mimeType = msg.audio?.mime_type || 'audio/ogg';
+    console.log(`[webhook] 🎤 Voice message from ${phone} — transcribing...`);
+    userText = await transcribeVoiceMessage(mediaId, mimeType);
+    console.log(`[webhook] 📝 Transcribed: "${userText}"`);
+
+  } else if (msg.type === 'image') {
+    userText = '[Customer ne ek image bheji hai]';
   } else if (msg.type === 'document') {
-    userText = '[Customer sent a document]';
+    userText = '[Customer ne ek document bheja hai]';
   } else {
-    userText = `[Customer sent a ${msg.type} message]`;
+    userText = `[Customer ne ${msg.type} message bheja]`;
   }
 
   console.log(`[webhook] Incoming from ${phone}: "${userText}"`);

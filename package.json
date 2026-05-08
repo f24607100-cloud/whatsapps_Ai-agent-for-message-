@@ -1,0 +1,27 @@
+{
+  "name": "whatsapp-ai-agent-gents-styling",
+  "version": "1.0.0",
+  "description": "WhatsApp AI Business Agent for GentsStyling — powered by OpenAI GPT-4o + Meta Cloud API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": ["whatsapp", "ai", "agent", "gents", "styling"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.105.3",
+    "axios": "^1.7.2",
+    "cors": "^2.8.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "form-data": "^4.0.0",
+    "node-cron": "^3.0.3",
+    "openai": "^4.52.7",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

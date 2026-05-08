@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Order Confirmed - Gents Styling</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8B4513",
+                        "background-light": "#f8f5f5",
+                        "background-dark": "#1a1a1a",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <link rel="stylesheet" href="chat.css">
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-900 dark:text-gray-100 antialiased selection:bg-primary selection:text-white flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 bg-white/80 dark:bg-[#1a1a1a]/90 backdrop-blur-md border-b border-gray-200 dark:border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a class="text-2xl font-bold tracking-tighter text-gray-900 dark:text-white" href="index.html">
+                        GENTS<span class="text-primary">.</span>STYLING
+                    </a>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="index.html" class="text-sm font-medium hover:text-primary transition-colors">Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="flex-grow max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
+        <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-xl border border-gray-100 dark:border-white/10 p-8 sm:p-12 text-center">
+            <div class="w-20 h-20 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span class="material-icons text-4xl text-green-600">check_circle</span>
+            </div>
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Thank You!</h1>
+            <p class="text-gray-500 mb-8">Your order has been confirmed and will be shipping soon.</p>
+
+            <div class="bg-gray-50 dark:bg-white/5 rounded-xl p-6 mb-8 text-left">
+                <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-4">
+                    <div>
+                        <p class="text-sm text-gray-500">Order Number</p>
+                        <p class="text-lg font-bold text-gray-900 dark:text-white font-mono" id="order-id">--</p>
+                    </div>
+                    <div class="mt-2 sm:mt-0 sm:text-right">
+                        <p class="text-sm text-gray-500">Order Date</p>
+                        <p class="text-sm font-medium text-gray-900 dark:text-white" id="order-date">--</p>
+                    </div>
+                </div>
+                <div class="border-t border-gray-200 dark:border-white/10 pt-4">
+                    <p class="text-sm text-gray-500 mb-2">Items Ordered</p>
+                    <ul id="order-items" class="space-y-2">
+                        <!-- JS populates -->
+                    </ul>
+                </div>
+                <div class="border-t border-gray-200 dark:border-white/10 mt-4 pt-4 flex justify-between items-center">
+                    <span class="font-semibold text-gray-900 dark:text-white">Total</span>
+                    <span class="text-xl font-bold text-primary" id="order-total">$0.00</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="index.html" class="bg-primary text-white px-8 py-3 rounded-full font-semibold hover:bg-[#6d360f] transition-colors shadow-lg shadow-primary/30 inline-flex items-center justify-center gap-2">
+                    <span class="material-icons text-sm">shopping_bag</span> Continue Shopping
+                </a>
+                <button onclick="window.print()" class="px-8 py-3 rounded-full font-semibold border border-gray-300 dark:border-gray-600 hover:border-primary hover:text-primary transition-colors inline-flex items-center justify-center gap-2">
+                    <span class="material-icons text-sm">print</span> Print Receipt
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 dark:bg-black text-white pt-12 pb-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-500 text-sm">&copy; 2024 Gents Styling. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/cart.js"></script>
+    <script>
+        (function() {
+            const raw = localStorage.getItem('gents_styling_last_order');
+            if (!raw) {
+                document.getElementById('order-id').textContent = 'N/A';
+                document.getElementById('order-items').innerHTML = '<li class="text-gray-500">No recent order found.</li>';
+                return;
+            }
+            try {
+                const order = JSON.parse(raw);
+                document.getElementById('order-id').textContent = order.id || 'N/A';
+                document.getElementById('order-date').textContent = order.createdAt ? new Date(order.createdAt).toLocaleString() : '--';
+                document.getElementById('order-total').textContent = '$' + (order.totals?.total || 0).toFixed(2);
+
+                const itemsList = document.getElementById('order-items');
+                if (order.items && order.items.length) {
+                    itemsList.innerHTML = order.items.map(item => `
+                        <li class="flex justify-between text-sm">
+                            <span class="text-gray-700 dark:text-gray-300">${item.name} <span class="text-gray-400">&times; ${item.quantity}</span></span>
+                            <span class="font-medium text-gray-900 dark:text-white">$${(item.price * item.quantity).toFixed(2)}</span>
+                        </li>
+                    `).join('');
+                } else {
+                    itemsList.innerHTML = '<li class="text-gray-500">No items found.</li>';
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        })();
+    </script>
+    <script src="js/chat.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+{
+  "products": [
+    {
+      "id": "p1",
+      "name": "Brown Blazer",
+      "price": 120.00,
+      "sizes": ["S", "M", "L", "XL"],
+      "materials": ["Cotton", "Polyester"],
+      "availability": "In Stock",
+      "description": "A stylish brown blazer suitable for casual and formal wear."
+    },
+    {
+      "id": "p2",
+      "name": "Grey Blazer",
+      "price": 135.00,
+      "sizes": ["M", "L", "XL"],
+      "materials": ["Wool", "Polyester blend"],
+      "availability": "Low Stock",
+      "description": "A premium grey blazer for formal occasions."
+    },
+    {
+      "id": "p3",
+      "name": "Silk Tie & Pocket Square Set",
+      "price": 45.00,
+      "sizes": ["One Size"],
+      "materials": ["100% Silk"],
+      "availability": "In Stock",
+      "description": "Matching silk tie and pocket square to complete your suit."
+    },
+    {
+      "id": "p4",
+      "name": "Classic Leather Oxford Shoes",
+      "price": 150.00,
+      "sizes": ["8", "9", "10", "11", "12"],
+      "materials": ["Genuine Leather"],
+      "availability": "In Stock",
+      "description": "Elegant leather oxford shoes for formal attire."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "What is your return policy?",
+      "answer": "We offer a 30-day return policy for unused items in their original packaging. Please contact support for a return label."
+    },
+    {
+      "question": "How long does shipping take?",
+      "answer": "Standard shipping takes 3-5 business days. Express shipping takes 1-2 business days."
+    },
+    {
+      "question": "Do you ship internationally?",
+      "answer": "Yes, we ship to most countries worldwide. International shipping typically takes 7-14 business days depending on the destination."
+    }
+  ],
+  "storeInfo": {
+    "name": "GentsStyling",
+    "contactEmail": "support@gentsstyling.com",
+    "whatsapp": "+1-800-123-4567"
+  }
+}

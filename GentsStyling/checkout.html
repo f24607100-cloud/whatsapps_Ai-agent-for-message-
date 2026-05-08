@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Checkout - Gents Styling</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8B4513",
+                        "background-light": "#f8f5f5",
+                        "background-dark": "#1a1a1a",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <link rel="stylesheet" href="chat.css">
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-900 dark:text-gray-100 antialiased selection:bg-primary selection:text-white flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 bg-white/80 dark:bg-[#1a1a1a]/90 backdrop-blur-md border-b border-gray-200 dark:border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a class="text-2xl font-bold tracking-tighter text-gray-900 dark:text-white" href="index.html">
+                        GENTS<span class="text-primary">.</span>STYLING
+                    </a>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="cart.html" class="text-sm font-medium hover:text-primary transition-colors flex items-center gap-1">
+                        <span class="material-icons text-sm">arrow_back</span> Back to Cart
+                    </a>
+                    <div class="p-2 text-gray-500 relative">
+                        <span class="material-icons">shopping_bag</span>
+                        <span class="cart-badge absolute -top-1 -right-1 flex items-center justify-center h-5 w-5 rounded-full bg-primary text-[10px] font-bold text-white ring-2 ring-white dark:ring-[#1a1a1a]" style="display:none">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
+        <h1 class="text-3xl font-bold mb-8 dark:text-white">Secure Checkout</h1>
+
+        <!-- Empty Cart Guard -->
+        <div id="empty-guard" class="hidden flex flex-col items-center justify-center py-20 text-center">
+            <span class="material-icons text-6xl text-gray-300 dark:text-gray-600 mb-4">shopping_bag</span>
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Your cart is empty</h2>
+            <p class="text-gray-500 mb-6">Add some items before checking out.</p>
+            <a href="index.html" class="bg-primary text-white px-8 py-3 rounded-full font-semibold hover:bg-[#6d360f] transition-colors">Start Shopping</a>
+        </div>
+
+        <div id="checkout-main" class="flex flex-col lg:flex-row gap-10">
+            <!-- Left: Forms -->
+            <div class="flex-1 space-y-8">
+                <!-- Shipping -->
+                <section class="bg-white dark:bg-[#1a1a1a] rounded-2xl p-6 border border-gray-100 dark:border-white/10 shadow-sm">
+                    <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+                        <span class="material-icons text-primary">local_shipping</span> Shipping Information
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name <span class="text-red-500">*</span></label>
+                            <input type="text" id="ship-name" required placeholder="John Doe"
+                                class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-black/20 focus:ring-primary focus:border-primary">
+                            <p class="text-red-500 text-xs mt-1 hidden" id="err-ship-name">Full name is required.</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email <span class="text-red-500">*</span></label>
+                            <input type="email" id="ship-email" required placeholder="john@example.com"
+                                class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-black/20 focus:ring-primary focus:border-primary">
+                            <p class="text-red-500 text-xs mt-1 hidden" id="err-ship-email">Valid email is required.</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Phone <span class="text-red-500">*</span></label>
+                            <input type="tel" id="ship-phone" required placeholder="+1 234 567 890"
+                                class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-black/20 focus:ring-primary focus:border-primary">
+                            <p class="text-red-500 text-xs mt-1 hidden" id="err-ship-phone">Valid phone number is required.</p>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Address <span class="text-red-500">*</span></label>
+                            <input type="text" id="ship-address" required placeholder="123 Fashion Avenue, Suite 4B"
+                                class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-black/20 focus:ring-primary focus:border-primary">
+                            <p class="text-red-500 text-xs mt-1 hidden" id="err-ship-address">Address is required.</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">City <span class="text-red-500">*</span></label>
+                            <input type="text" id="ship-city" required placeholder="New York"
+                                class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-black/20 focus:ring-primary focus:border-primary">
+                            <p class="text-red-500 text-xs mt-1 hidden" id="err-ship-city">City is required.</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Postal Code <span class="text-red-500">*</span></label>
+                            <input type="text" id="ship-postal" required placeholder="10001"
+                                class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-black/20 focus:ring-primary focus:border-primary">
+                            <p class="text-red-500 text-xs mt-1 hidden" id="err-ship-postal">Postal code is required.</p>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Country <span class="text-red-500">*</span></label>
+                            <select id="ship-country"
+                                class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-black/20 focus:ring-primary focus:border-primary">
+                                <option value="US">United States</option>
+                                <option value="CA">Canada</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="AU">Australia</option>
+                                <option value="DE">Germany</option>
+                                <option value="FR">France</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Payment -->
+                <section class="bg-white dark:bg-[#1a1a1a] rounded-2xl p-6 border border-gray-100 dark:border-white/10 shadow-sm">
+                    <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+                        <span class="material-icons text-primary">payment</span> Payment Method
+                    </h2>
+
+                    <div class="space-y-4">
+                        <label class="flex items-center gap-3 p-4 rounded-xl border border-gray-200 dark:border-gray-600 cursor-pointer hover:border-primary transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+                            <input type="radio" name="payment" value="card" checked class="text-primary focus:ring-primary"
+                                onchange="togglePaymentFields()">
+                            <div class="flex-1">
+                                <span class="font-semibold text-gray-900 dark:text-white block">Credit / Debit Card</span>
+                                <span class="text-xs text-gray-500">Visa, Mastercard, Amex, Discover</span>
+                            </div>
+                            <span class="material-icons text-gray-400">credit_card</span>
+                        </label>
+
+                        <label class="flex items-center gap-3 p-4 rounded-xl border border-gray-200 dark:border-gray-600 cursor-pointer hover:border-primary transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+                            <input type="radio" name="payment" value="cod" class="text-primary focus:ring-primary"
+                                onchange="togglePaymentFields()">
+                            <div class="flex-1">
+                                <span class="font-semibold text-gray-900 dark:text-white block">Cash on Delivery</span>
+                                <span class="text-xs text-gray-500">Pay when you receive your order</span>
+                            </div>
+                            <span class="material-icons text-gray-400">payments</span>
+                        </label>
+                    </div>
+
+                    <!-- Card Fields -->
+                    <div id="card-fields" class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Card Number <span class="text-red-500">*</span></label>
+                            <input type="text" id="pay-card" maxlength="19" placeholder="4242 4242 4242 4242"
+                                class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-black/20 focus:ring-primary focus:border-primary font-mono tracking-widest">
+                            <p class="text-red-500 text-xs mt-1 hidden" id="err-pay-card">Valid card number is required (min 16 digits).</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Expiry (MM/YY) <span class="text-red-500">*</span></label>
+                            <input type="text" id="pay-expiry" maxlength="5" placeholder="MM/YY"
+                                class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-black/20 focus:ring-primary focus:border-primary font-mono">
+                            <p class="text-red-500 text-xs mt-1 hidden" id="err-pay-expiry">Valid future expiry required.</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">CVV <span class="text-red-500">*</span></label>
+                            <input type="text" id="pay-cvv" maxlength="4" placeholder="123"
+                                class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-black/20 focus:ring-primary focus:border-primary font-mono">
+                            <p class="text-red-500 text-xs mt-1 hidden" id="err-pay-cvv">CVV must be 3-4 digits.</p>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name on Card <span class="text-red-500">*</span></label>
+                            <input type="text" id="pay-name" placeholder="John Doe"
+                                class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-black/20 focus:ring-primary focus:border-primary">
+                            <p class="text-red-500 text-xs mt-1 hidden" id="err-pay-name">Name on card is required.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right: Summary -->
+            <div class="w-full lg:w-96">
+                <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-lg border border-gray-100 dark:border-white/10 p-6 sticky top-28">
+                    <h2 class="text-lg font-bold mb-6 dark:text-white">Order Summary</h2>
+                    <div id="checkout-items" class="max-h-64 overflow-y-auto space-y-4 mb-6 pr-2">
+                        <!-- JS renders items -->
+                    </div>
+                    <div class="space-y-3 text-sm border-t border-gray-200 dark:border-white/10 pt-4">
+                        <div class="flex justify-between text-gray-600 dark:text-gray-400">
+                            <span>Subtotal</span>
+                            <span id="checkout-subtotal">$0.00</span>
+                        </div>
+                        <div class="flex justify-between text-gray-600 dark:text-gray-400">
+                            <span>Shipping</span>
+                            <span id="checkout-shipping">$0.00</span>
+                        </div>
+                        <div class="flex justify-between text-gray-600 dark:text-gray-400">
+                            <span>Tax (8%)</span>
+                            <span id="checkout-tax">$0.00</span>
+                        </div>
+                        <div class="flex justify-between text-base font-bold text-gray-900 dark:text-white pt-2">
+                            <span>Total</span>
+                            <span id="checkout-total">$0.00</span>
+                        </div>
+                    </div>
+                    <button type="button" onclick="submitOrder()" id="btn-place-order"
+                        class="mt-6 w-full bg-primary text-white py-4 rounded-xl font-bold hover:bg-[#6d360f] transition-colors shadow-lg shadow-primary/30 disabled:opacity-50 disabled:pointer-events-none flex justify-center items-center gap-2">
+                        <span class="material-icons">lock</span> Place Order
+                    </button>
+                    <p class="text-xs text-center text-gray-400 mt-4">Secure 256-bit SSL encrypted.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 dark:bg-black text-white pt-12 pb-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-500 text-sm">&copy; 2024 Gents Styling. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Processing Overlay -->
+    <div id="processing-overlay" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center">
+        <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl p-8 flex flex-col items-center shadow-2xl max-w-sm mx-4">
+            <div class="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4"></div>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white">Processing Order...</h3>
+            <p class="text-sm text-gray-500 mt-1 text-center">Please wait while we secure your payment.</p>
+        </div>
+    </div>
+
+    <script src="js/cart.js"></script>
+    <script>
+        function formatMoney(amount) {
+            return '$' + parseFloat(amount).toFixed(2);
+        }
+
+        function renderCheckoutSummary() {
+            const cart = getCart();
+            const itemsContainer = document.getElementById('checkout-items');
+
+            if (cart.length === 0) {
+                document.getElementById('checkout-main').classList.add('hidden');
+                document.getElementById('empty-guard').classList.remove('hidden');
+                return;
+            }
+
+            document.getElementById('checkout-main').classList.remove('hidden');
+            document.getElementById('empty-guard').classList.add('hidden');
+
+            itemsContainer.innerHTML = cart.map(item => `
+                <div class="flex gap-3">
+                    <div class="w-14 h-14 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800">
+                        <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="text-sm font-medium text-gray-900 dark:text-white truncate">${item.name}</h4>
+                        <p class="text-xs text-gray-500">Size: ${item.size} &bull; Qty: ${item.quantity}</p>
+                    </div>
+                    <div class="text-sm font-bold text-primary">${formatMoney(item.price * item.quantity)}</div>
+                </div>
+            `).join('');
+
+            document.getElementById('checkout-subtotal').textContent = formatMoney(getCartSubtotal());
+            document.getElementById('checkout-shipping').textContent = getEstimatedShipping() === 0 ? 'FREE' : formatMoney(getEstimatedShipping());
+            document.getElementById('checkout-tax').textContent = formatMoney(getEstimatedTax());
+            document.getElementById('checkout-total').textContent = formatMoney(getCartTotal());
+        }
+
+        window.renderCheckoutSummary = renderCheckoutSummary;
+        document.addEventListener('DOMContentLoaded', renderCheckoutSummary);
+
+        // Payment fields toggle
+        function togglePaymentFields() {
+            const method = document.querySelector('input[name="payment"]:checked').value;
+            const fields = document.getElementById('card-fields');
+            if (method === 'card') {
+                fields.classList.remove('hidden');
+                fields.classList.add('grid');
+            } else {
+                fields.classList.add('hidden');
+                fields.classList.remove('grid');
+            }
+        }
+
+        // Input formatting helpers
+        document.getElementById('pay-card')?.addEventListener('input', function(e) {
+            let v = e.target.value.replace(/\D/g, '');
+            v = v.substring(0, 16);
+            e.target.value = v.replace(/(.{4})/g, '$1 ').trim();
+        });
+
+        document.getElementById('pay-expiry')?.addEventListener('input', function(e) {
+            let v = e.target.value.replace(/\D/g, '');
+            if (v.length >= 2) {
+                v = v.substring(0, 2) + '/' + v.substring(2, 4);
+            }
+            e.target.value = v;
+        });
+
+        document.getElementById('pay-cvv')?.addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '').substring(0, 4);
+        });
+
+        // Validation
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+        function validatePhone(phone) {
+            return /^[\d\s\+\-\(\)]{7,20}$/.test(phone);
+        }
+        function validateCardNumber(raw) {
+            const digits = raw.replace(/\s/g, '');
+            if (!/^\d{15,16}$/.test(digits)) return false;
+            // Luhn check
+            let sum = 0;
+            let alternate = false;
+            for (let i = digits.length - 1; i >= 0; i--) {
+                let n = parseInt(digits.substring(i, i + 1), 10);
+                if (alternate) {
+                    n *= 2;
+                    if (n > 9) n -= 9;
+                }
+                sum += n;
+                alternate = !alternate;
+            }
+            return sum % 10 === 0;
+        }
+        function validateExpiry(expiry) {
+            if (!/^\d{2}\/\d{2}$/.test(expiry)) return false;
+            const [mm, yy] = expiry.split('/').map(Number);
+            if (mm < 1 || mm > 12) return false;
+            const now = new Date();
+            const cent = now.getFullYear() >= 2000 ? 2000 : 1900;
+            const expYear = cent + yy;
+            const expMonth = mm; // 1-based
+            // Expiry is valid if year > current year, or same year but month >= current month
+            if (expYear > now.getFullYear()) return true;
+            if (expYear === now.getFullYear() && expMonth >= (now.getMonth() + 1)) return true;
+            return false;
+        }
+
+        function showFieldError(id, show) {
+            const el = document.getElementById('err-' + id);
+            if (el) el.classList.toggle('hidden', !show);
+            const input = document.getElementById(id);
+            if (input) {
+                if (show) input.classList.add('border-red-500', 'focus:ring-red-500', 'focus:border-red-500');
+                else input.classList.remove('border-red-500', 'focus:ring-red-500', 'focus:border-red-500');
+            }
+        }
+
+        function clearAllErrors() {
+            ['ship-name','ship-email','ship-phone','ship-address','ship-city','ship-postal','pay-card','pay-expiry','pay-cvv','pay-name'].forEach(id => showFieldError(id, false));
+        }
+
+        function submitOrder() {
+            clearAllErrors();
+            const cart = getCart();
+            if (cart.length === 0) {
+                showToast('Your cart is empty.', 'error');
+                return;
+            }
+
+            const method = document.querySelector('input[name="payment"]:checked').value;
+            let isValid = true;
+
+            // Shipping validation
+            const name = document.getElementById('ship-name').value.trim();
+            if (!name) { showFieldError('ship-name', true); isValid = false; }
+
+            const email = document.getElementById('ship-email').value.trim();
+            if (!email || !validateEmail(email)) { showFieldError('ship-email', true); isValid = false; }
+
+            const phone = document.getElementById('ship-phone').value.trim();
+            if (!phone || !validatePhone(phone)) { showFieldError('ship-phone', true); isValid = false; }
+
+            const address = document.getElementById('ship-address').value.trim();
+            if (!address) { showFieldError('ship-address', true); isValid = false; }
+
+            const city = document.getElementById('ship-city').value.trim();
+            if (!city) { showFieldError('ship-city', true); isValid = false; }
+
+            const postal = document.getElementById('ship-postal').value.trim();
+            if (!postal) { showFieldError('ship-postal', true); isValid = false; }
+
+            const country = document.getElementById('ship-country').value;
+
+            // Payment validation
+            if (method === 'card') {
+                const cardRaw = document.getElementById('pay-card').value.trim();
+                if (!validateCardNumber(cardRaw)) { showFieldError('pay-card', true); isValid = false; }
+
+                const expiry = document.getElementById('pay-expiry').value.trim();
+                if (!validateExpiry(expiry)) { showFieldError('pay-expiry', true); isValid = false; }
+
+                const cvv = document.getElementById('pay-cvv').value.trim();
+                if (!/^\d{3,4}$/.test(cvv)) { showFieldError('pay-cvv', true); isValid = false; }
+
+                const cardName = document.getElementById('pay-name').value.trim();
+                if (!cardName) { showFieldError('pay-name', true); isValid = false; }
+            }
+
+            if (!isValid) {
+                showToast('Please fix the highlighted errors.', 'error');
+                return;
+            }
+
+            // Build order
+            const orderId = generateOrderId();
+            const order = {
+                id: orderId,
+                status: 'confirmed',
+                createdAt: new Date().toISOString(),
+                items: JSON.parse(JSON.stringify(cart)),
+                totals: {
+                    subtotal: getCartSubtotal(),
+                    shipping: getEstimatedShipping(),
+                    tax: getEstimatedTax(),
+                    total: getCartTotal()
+                },
+                shipping: { name, email, phone, address, city, postal, country },
+                payment: { method }
+            };
+
+            // Show processing
+            const overlay = document.getElementById('processing-overlay');
+            overlay.classList.remove('hidden');
+
+            // Simulate async backend call
+            setTimeout(() => {
+                try {
+                    saveOrder(order);
+                    localStorage.setItem('gents_styling_last_order', JSON.stringify(order));
+                    clearCart();
+                    window.location.href = 'order_success.html';
+                } catch (err) {
+                    overlay.classList.add('hidden');
+                    showToast('Something went wrong. Please try again.', 'error');
+                    console.error(err);
+                }
+            }, 1800);
+        }
+    </script>
+    <script src="js/chat.js"></script>
+</body>
+</html>

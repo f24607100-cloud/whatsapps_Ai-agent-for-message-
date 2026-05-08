@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Product Details - Gents Styling</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8B4513",
+                        "background-light": "#f8f5f5",
+                        "background-dark": "#1a1a1a",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <link rel="stylesheet" href="chat.css">
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-gray-900 dark:text-gray-100 antialiased selection:bg-primary selection:text-white flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header
+        class="sticky top-0 z-40 bg-white/80 dark:bg-[#1a1a1a]/90 backdrop-blur-md border-b border-gray-200 dark:border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a class="text-2xl font-bold tracking-tighter text-gray-900 dark:text-white" href="index.html">
+                        GENTS<span class="text-primary">.</span>STYLING
+                    </a>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="index.html" class="text-sm font-medium hover:text-primary">Home</a>
+                    <a href="cart.html" class="p-2 text-gray-500 hover:text-primary relative">
+                        <span class="material-icons">shopping_bag</span>
+                        <span id="cart-count" class="cart-badge absolute -top-1 -right-1 items-center justify-center h-5 w-5 rounded-full bg-primary text-[10px] font-bold text-white" style="display:none">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-xl overflow-hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-0">
+                <!-- Product Image -->
+                <div class="relative h-[500px] md:h-auto bg-gray-100 dark:bg-gray-800">
+                    <img id="product-image" alt="Product Image" class="absolute inset-0 w-full h-full object-cover"
+                        src="" />
+                </div>
+
+                <!-- Product Details -->
+                <div class="p-8 md:p-12 flex flex-col justify-center">
+                    <div class="mb-6">
+                        <span class="text-primary font-bold tracking-wider text-sm uppercase">Gents Styling
+                            Collection</span>
+                        <h1 id="product-name" class="text-4xl font-bold text-gray-900 dark:text-white mt-2 mb-4">
+                            Loading...</h1>
+                        <p id="product-price" class="text-3xl font-medium text-gray-900 dark:text-gray-200">$0.00</p>
+                    </div>
+
+                    <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+                        Experience the epitome of luxury and style. Meticulously crafted for the modern gentleman,
+                        this piece combines timeless design with premium materials to ensure you look your best for any
+                        occasion.
+                    </p>
+
+                    <!-- Size Selector -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select Size</label>
+                        <div id="size-selector" class="flex flex-wrap gap-3">
+                            <button data-size="S" onclick="selectSize('S')"
+                                class="size-btn w-12 h-12 rounded-lg border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:border-primary hover:text-primary focus:outline-none transition-all">S</button>
+                            <button data-size="M" onclick="selectSize('M')"
+                                class="size-btn w-12 h-12 rounded-lg border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:border-primary hover:text-primary focus:outline-none transition-all">M</button>
+                            <button data-size="L" onclick="selectSize('L')"
+                                class="size-btn w-12 h-12 rounded-lg border border-primary bg-primary/10 text-primary flex items-center justify-center font-bold ring-2 ring-primary transition-all">L</button>
+                            <button data-size="XL" onclick="selectSize('XL')"
+                                class="size-btn w-12 h-12 rounded-lg border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:border-primary hover:text-primary focus:outline-none transition-all">XL</button>
+                        </div>
+                    </div>
+
+                    <!-- Quantity -->
+                    <div class="mb-8">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Quantity</label>
+                        <div class="flex items-center border border-gray-200 dark:border-gray-600 rounded-lg w-max">
+                            <button onclick="adjustQty(-1)" class="w-10 h-10 flex items-center justify-center text-gray-600 hover:bg-gray-100 dark:hover:bg-white/5 rounded-l-lg transition-colors">
+                                <span class="material-icons text-sm">remove</span>
+                            </button>
+                            <input type="text" id="qty-input" value="1" readonly class="w-12 text-center text-sm font-semibold bg-transparent border-none focus:ring-0 text-gray-900 dark:text-white">
+                            <button onclick="adjustQty(1)" class="w-10 h-10 flex items-center justify-center text-gray-600 hover:bg-gray-100 dark:hover:bg-white/5 rounded-r-lg transition-colors">
+                                <span class="material-icons text-sm">add</span>
+                            </button>
+                        </div>
+                        <p id="stock-notice" class="text-xs text-red-500 mt-2 hidden">Only <span id="max-stock-val">10</span> available.</p>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex gap-4">
+                        <button onclick="addProductToCart()"
+                            class="flex-1 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white py-4 rounded-xl font-bold hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors flex justify-center items-center gap-2">
+                            <span class="material-icons">shopping_cart</span> Add to Cart
+                        </button>
+                        <button onclick="buyNow()"
+                            class="flex-1 bg-primary text-white py-4 rounded-xl font-bold hover:bg-[#6d360f] transition-colors shadow-lg shadow-primary/30 flex justify-center items-center gap-2">
+                            <span class="material-icons">flash_on</span> Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Complete the Look Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200 dark:border-white/10">
+        <h2 class="text-2xl font-bold mb-8 dark:text-white">Complete the Look</h2>
+        <div id="complete-look-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <!-- Dynamic Suggestions will be inserted here -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 dark:bg-black text-white pt-12 pb-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-500 text-sm">© 2024 Gents Styling. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Toast container injected dynamically by cart.js -->
+
+    <script src="js/cart.js"></script>
+    <script>
+        // Parse URL Parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const productName = urlParams.get('name') || "Classic Product";
+        const productPrice = urlParams.get('price') || "99.00";
+        const productImage = urlParams.get('image') || "https://placehold.co/600x600/1a1a1a/FFF?text=No+Image";
+
+        // Mock stock per product (could come from URL in a real app)
+        const stockMap = {
+            "midnight tuxedo": 8,
+            "linen summer blazer": 12,
+            "premium chinos": 20,
+            "modern fit dress shirt": 25,
+            "italian wool blazer": 10,
+            "charcoal classic 3-piece": 5,
+            "signature oxford shirt": 3,
+            "slim fit navy trousers": 15,
+            "modern oxford shoes": 10,
+            "silk tie & pocket square": 30
+        };
+        const maxStock = stockMap[productName.toLowerCase()] || 10;
+
+        // Update UI
+        document.getElementById('product-name').textContent = productName;
+        document.getElementById('product-price').textContent = '$' + productPrice;
+        document.getElementById('product-image').src = productImage;
+        document.getElementById('max-stock-val').textContent = maxStock;
+
+        // State
+        let selectedSize = 'L';
+        let currentQty = 1;
+
+        // Size Selection
+        function selectSize(size) {
+            selectedSize = size;
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                const isActive = btn.dataset.size === size;
+                if (isActive) {
+                    btn.className = 'size-btn w-12 h-12 rounded-lg border border-primary bg-primary/10 text-primary flex items-center justify-center font-bold ring-2 ring-primary transition-all';
+                } else {
+                    btn.className = 'size-btn w-12 h-12 rounded-lg border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:border-primary hover:text-primary focus:outline-none transition-all';
+                }
+            });
+        }
+
+        // Quantity
+        function adjustQty(delta) {
+            const newQty = currentQty + delta;
+            if (newQty < 1) return;
+            if (newQty > maxStock) {
+                document.getElementById('stock-notice').classList.remove('hidden');
+                return;
+            }
+            document.getElementById('stock-notice').classList.add('hidden');
+            currentQty = newQty;
+            document.getElementById('qty-input').value = currentQty;
+        }
+
+        // Add to Cart
+        function addProductToCart() {
+            const added = addToCart({
+                name: productName,
+                price: productPrice,
+                image: productImage,
+                quantity: currentQty,
+                size: selectedSize,
+                maxStock: maxStock
+            });
+            if (added) {
+                // Reset qty after add for UX cleanliness
+                currentQty = 1;
+                document.getElementById('qty-input').value = 1;
+            }
+        }
+
+        // Buy Now: add to cart and go to checkout
+        function buyNow() {
+            const added = addToCart({
+                name: productName,
+                price: productPrice,
+                image: productImage,
+                quantity: currentQty,
+                size: selectedSize,
+                maxStock: maxStock
+            });
+            if (added) {
+                window.location.href = 'checkout.html';
+            }
+        }
+
+        // Complete the Look Logic
+        const inventory = [
+            { name: "Crisp White Shirt", price: "55.00", image: "./men fashion.jpg", category: "Shirt" },
+            { name: "Slim Fit Navy Chinos", price: "85.00", image: "./men_blazergrey.jpg", category: "Pants" },
+            { name: "Classic Leather Loafers", price: "120.00", image: "./gents_shoes1.jpg", category: "Shoes" },
+            { name: "Modern Oxford Shoes", price: "135.00", image: "./sgents_shoes2.jpg", category: "Shoes" },
+            { name: "Silk Tie & Pocket Square", price: "45.00", image: "./Silk%20Tie%20&%20Pocket%20Square.jpg", category: "Accessories" },
+            { name: "Classic Blazer", price: "185.00", image: "./brown_blazer.jpg", category: "Blazer" }
+        ];
+
+        function getSuggestions(currentName) {
+            const suggestions = [];
+            const nameLower = currentName.toLowerCase();
+
+            if (nameLower.includes("blazer") || nameLower.includes("suit") || nameLower.includes("tuxedo")) {
+                suggestions.push(inventory.find(i => i.category === "Shirt"));
+                suggestions.push(inventory.find(i => i.category === "Pants"));
+                suggestions.push(inventory.find(i => i.category === "Shoes"));
+                suggestions.push(inventory.find(i => i.category === "Accessories"));
+            } else if (nameLower.includes("shirt")) {
+                suggestions.push(inventory.find(i => i.category === "Blazer"));
+                suggestions.push(inventory.find(i => i.category === "Pants"));
+                suggestions.push(inventory.find(i => i.category === "Shoes"));
+            } else if (nameLower.includes("trouser") || nameLower.includes("pant") || nameLower.includes("chinos")) {
+                suggestions.push(inventory.find(i => i.category === "Shirt"));
+                suggestions.push(inventory.find(i => i.category === "Blazer"));
+                suggestions.push(inventory.find(i => i.category === "Shoes"));
+            } else {
+                suggestions.push(inventory[0], inventory[1], inventory[4]);
+            }
+            return [...new Set(suggestions.filter(item => item))];
+        }
+
+        const suggestions = getSuggestions(productName);
+        const grid = document.getElementById('complete-look-grid');
+
+        suggestions.forEach(item => {
+            const card = document.createElement('a');
+            card.href = `product_detail.html?name=${encodeURIComponent(item.name)}&price=${item.price}&image=${encodeURIComponent(item.image)}`;
+            card.className = "group block bg-gray-50 dark:bg-white/5 rounded-xl overflow-hidden hover:shadow-lg transition-shadow";
+            card.innerHTML = `
+                <div class="aspect-[3/4] overflow-hidden">
+                    <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-4">
+                    <h3 class="text-sm font-medium text-gray-900 dark:text-white truncate">${item.name}</h3>
+                    <p class="text-sm text-primary font-bold mt-1">$${item.price}</p>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    </script>
+    <script src="js/chat.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Gents Styling - Premium Menswear</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8B4513", // SaddleBrown for a leather/gentleman vibe
+                        "background-light": "#f8f5f5",
+                        "background-dark": "#1a1a1a",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <link rel="stylesheet" href="chat.css">
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-gray-900 dark:text-gray-100 antialiased selection:bg-primary selection:text-white">
+    <!-- Header Section -->
+    <header
+        class="sticky top-0 z-50 bg-white/80 dark:bg-[#1a1a1a]/90 backdrop-blur-md border-b border-gray-200 dark:border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a class="text-2xl font-bold tracking-tighter text-gray-900 dark:text-white" href="#">
+                        GENTS<span class="text-primary">.</span>STYLING
+                    </a>
+                </div>
+                <!-- Center Search -->
+                <div class="hidden md:flex flex-1 max-w-lg mx-8 relative">
+                    <div class="relative w-full">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <span class="material-icons text-gray-400">search</span>
+                        </div>
+                        <input
+                            class="block w-full pl-10 pr-3 py-2.5 border-none rounded-full leading-5 bg-gray-100 dark:bg-white/5 text-gray-900 dark:text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-black/20 sm:text-sm transition-all duration-300"
+                            placeholder="Search for suits, blazers, shirts..." type="text" />
+                    </div>
+                </div>
+                <!-- Right Actions -->
+                <div class="flex items-center space-x-6">
+                    <button class="p-2 text-gray-500 hover:text-primary transition-colors duration-200 relative group">
+                        <span class="material-icons">favorite_border</span>
+                        <span
+                            class="absolute top-2 right-1 block h-2 w-2 rounded-full bg-primary ring-2 ring-white dark:ring-[#1a1a1a]"></span>
+                    </button>
+                    <a href="cart.html" class="p-2 text-gray-500 hover:text-primary transition-colors duration-200 relative">
+                        <span class="material-icons">shopping_bag</span>
+                        <span class="cart-badge absolute -top-1 -right-1 items-center justify-center h-5 w-5 rounded-full bg-primary text-[10px] font-bold text-white ring-2 ring-white dark:ring-[#1a1a1a]" style="display:none">0</span>
+                    </a>
+                    <button class="p-2 text-gray-500 hover:text-primary transition-colors duration-200">
+                        <span class="material-icons">person_outline</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="relative mx-4 mt-6 rounded-2xl overflow-hidden h-[500px] lg:h-[600px] group">
+        <video autoplay muted loop playsinline
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+            <source src="./hero_section_video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent"></div>
+        <div class="absolute inset-0 flex items-center max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="max-w-xl text-white space-y-6">
+                <span
+                    class="inline-block px-3 py-1 bg-primary/90 text-white text-xs font-bold tracking-widest uppercase rounded-sm backdrop-blur-sm">New
+                    Arrivals</span>
+                <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
+                    Elevate Your <br />
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Presence</span>
+                </h1>
+                <p class="text-lg text-gray-200 font-light max-w-md">
+                    Impeccably tailored suits, blazers, and shirts for the modern gentleman. Experience true luxury.
+                </p>
+                <div class="pt-4">
+                    <button
+                        class="bg-white text-black px-8 py-4 rounded-full font-semibold hover:bg-primary hover:text-white transition-all duration-300 flex items-center gap-2 group-hover:pl-10">
+                        Shop Collection <span
+                            class="material-icons text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Circular Category Navigation -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <h2 class="text-2xl font-bold mb-8 dark:text-white">Shop by Category</h2>
+        <div class="flex gap-8 overflow-x-auto pb-6 scrollbar-hide justify-start lg:justify-between">
+            <a class="group flex flex-col items-center gap-3 min-w-[100px]" href="#">
+                <div
+                    class="w-24 h-24 rounded-full overflow-hidden border-2 border-transparent group-hover:border-primary transition-all duration-300 shadow-lg">
+                    <img alt="Blazers"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        src="./brown_blazer.jpg" />
+                </div>
+                <span
+                    class="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-primary transition-colors">Blazers</span>
+            </a>
+            <a class="group flex flex-col items-center gap-3 min-w-[100px]" href="#">
+                <div
+                    class="w-24 h-24 rounded-full overflow-hidden border-2 border-transparent group-hover:border-primary transition-all duration-300 shadow-lg">
+                    <img alt="3-Piece Suits"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        src="./men_blazergrey.jpg" />
+                </div>
+                <span
+                    class="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-primary transition-colors">3-Piece
+                    Suits</span>
+            </a>
+            <a class="group flex flex-col items-center gap-3 min-w-[100px]" href="#">
+                <div
+                    class="w-24 h-24 rounded-full overflow-hidden border-2 border-transparent group-hover:border-primary transition-all duration-300 shadow-lg">
+                    <img alt="Formal Shirts"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        src="./men fashion.jpg" style="object-position: top center;" />
+                </div>
+                <span
+                    class="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-primary transition-colors">Shirts</span>
+            </a>
+            <a class="group flex flex-col items-center gap-3 min-w-[100px]" href="#">
+                <div
+                    class="w-24 h-24 rounded-full overflow-hidden border-2 border-transparent group-hover:border-primary transition-all duration-300 shadow-lg">
+                    <img alt="Pants & Trousers"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        src="./men_blazergrey.jpg" style="object-position: bottom center;" />
+                </div>
+                <span
+                    class="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-primary transition-colors">Pants</span>
+            </a>
+            <a class="group flex flex-col items-center gap-3 min-w-[100px]"
+                href="product_detail.html?name=Modern%20Oxford%20Shoes&price=135.00&image=./sgents_shoes2.jpg">
+                <div
+                    class="w-24 h-24 rounded-full overflow-hidden border-2 border-transparent group-hover:border-primary transition-all duration-300 shadow-lg">
+                    <img alt="Shoes"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        src="./sgents_shoes2.jpg" />
+                </div>
+                <span
+                    class="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-primary transition-colors">Shoes</span>
+            </a>
+            <a class="group flex flex-col items-center gap-3 min-w-[100px]"
+                href="product_detail.html?name=Silk%20Tie%20&%20Pocket%20Square&price=45.00&image=./Silk%20Tie%20&%20Pocket%20Square.jpg">
+                <div
+                    class="w-24 h-24 rounded-full overflow-hidden border-2 border-transparent group-hover:border-primary transition-all duration-300 shadow-lg">
+                    <img alt="Accessories"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        src="./Silk%20Tie%20&%20Pocket%20Square.jpg" />
+                </div>
+                <span
+                    class="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-primary transition-colors">Accessories</span>
+            </a>
+        </div>
+    </section>
+    <!-- Flash Sale Section -->
+    <section class="bg-white dark:bg-[#2a1212] py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end md:items-center mb-10 gap-4">
+                <div class="flex items-center gap-6">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
+                            <span class="material-icons text-primary animate-pulse">flash_on</span>
+                            Flash Sale - Suits & Blazers
+                        </h2>
+                        <p class="text-gray-500 dark:text-gray-400 mt-1">Limited time offers on premium gents styling.
+                        </p>
+                    </div>
+                    <!-- Countdown Timer -->
+                    <div class="flex gap-3 text-center">
+                        <div class="bg-gray-100 dark:bg-white/10 rounded-lg p-2 min-w-[60px]">
+                            <span class="block text-xl font-bold text-primary">05</span>
+                            <span class="text-xs text-gray-500">Hours</span>
+                        </div>
+                        <div class="self-center font-bold text-gray-300">:</div>
+                        <div class="bg-gray-100 dark:bg-white/10 rounded-lg p-2 min-w-[60px]">
+                            <span class="block text-xl font-bold text-primary">24</span>
+                            <span class="text-xs text-gray-500">Mins</span>
+                        </div>
+                        <div class="self-center font-bold text-gray-300">:</div>
+                        <div class="bg-gray-100 dark:bg-white/10 rounded-lg p-2 min-w-[60px]">
+                            <span class="block text-xl font-bold text-primary">45</span>
+                            <span class="text-xs text-gray-500">Secs</span>
+                        </div>
+                    </div>
+                </div>
+                <a class="text-sm font-semibold text-primary hover:text-red-700 flex items-center gap-1" href="#">
+                    View All Deals <span class="material-icons text-sm">arrow_forward</span>
+                </a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Flash Item 1 -->
+                <a href="product_detail.html?name=Italian%20Wool%20Blazer&price=185.00&image=./brown_blazer.jpg"
+                    class="bg-background-light dark:bg-background-dark rounded-xl p-4 relative group block hover:shadow-xl transition-shadow">
+                    <span
+                        class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-2 py-1 rounded z-10">-30%</span>
+                    <div class="relative overflow-hidden rounded-lg aspect-[3/4] mb-4">
+                        <img alt="Italian Wool Blazer"
+                            class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
+                            src="./brown_blazer.jpg" />
+                    </div>
+                    <h3 class="font-medium text-gray-900 dark:text-white truncate">Italian Wool Blazer</h3>
+                    <div class="flex items-center gap-2 mt-1">
+                        <span class="text-primary font-bold">$185.00</span>
+                        <span class="text-gray-400 text-sm line-through">$265.00</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-3">
+                        <div class="bg-primary h-1.5 rounded-full" style="width: 75%"></div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">12 sold recently</p>
+                </a>
+                <!-- Flash Item 2 -->
+                <a href="product_detail.html?name=Charcoal%20Classic%203-Piece&price=295.00&image=./men_blazergrey.jpg"
+                    class="bg-background-light dark:bg-background-dark rounded-xl p-4 relative group block hover:shadow-xl transition-shadow">
+                    <span
+                        class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-2 py-1 rounded z-10">-25%</span>
+                    <div class="relative overflow-hidden rounded-lg aspect-[3/4] mb-4">
+                        <img alt="Charcoal 3-Piece"
+                            class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
+                            src="./men_blazergrey.jpg" />
+                    </div>
+                    <h3 class="font-medium text-gray-900 dark:text-white truncate">Charcoal Classic 3-Piece</h3>
+                    <div class="flex items-center gap-2 mt-1">
+                        <span class="text-primary font-bold">$295.00</span>
+                        <span class="text-gray-400 text-sm line-through">$395.00</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-3">
+                        <div class="bg-primary h-1.5 rounded-full" style="width: 45%"></div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">5 left in stock</p>
+                </a>
+                <!-- Flash Item 3 -->
+                <a href="product_detail.html?name=Signature%20Oxford%20Shirt&price=45.00&image=./men%20fashion.jpg"
+                    class="bg-background-light dark:bg-background-dark rounded-xl p-4 relative group block hover:shadow-xl transition-shadow">
+                    <span
+                        class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-2 py-1 rounded z-10">-40%</span>
+                    <div class="relative overflow-hidden rounded-lg aspect-[3/4] mb-4">
+                        <img alt="Oxford White Shirt"
+                            class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
+                            src="./men fashion.jpg" style="object-position: top;" />
+                    </div>
+                    <h3 class="font-medium text-gray-900 dark:text-white truncate">Signature Oxford Shirt</h3>
+                    <div class="flex items-center gap-2 mt-1">
+                        <span class="text-primary font-bold">$45.00</span>
+                        <span class="text-gray-400 text-sm line-through">$75.00</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-3">
+                        <div class="bg-primary h-1.5 rounded-full" style="width: 90%"></div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Almost gone</p>
+                </a>
+                <!-- Flash Item 4 -->
+                <a href="product_detail.html?name=Slim%20Fit%20Navy%20Trousers&price=65.00&image=./men_blazergrey.jpg"
+                    class="bg-background-light dark:bg-background-dark rounded-xl p-4 relative group block hover:shadow-xl transition-shadow">
+                    <span
+                        class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-2 py-1 rounded z-10">-15%</span>
+                    <div class="relative overflow-hidden rounded-lg aspect-[3/4] mb-4">
+                        <img alt="Slim Fit Trousers"
+                            class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
+                            src="./men_blazergrey.jpg" style="object-position: bottom;" />
+                    </div>
+                    <h3 class="font-medium text-gray-900 dark:text-white truncate">Slim Fit Navy Trousers</h3>
+                    <div class="flex items-center gap-2 mt-1">
+                        <span class="text-primary font-bold">$65.00</span>
+                        <span class="text-gray-400 text-sm line-through">$80.00</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-3">
+                        <div class="bg-primary h-1.5 rounded-full" style="width: 60%"></div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Popular right now</p>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Today's For You Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Curated For You</h2>
+            <p class="text-gray-500 mt-2">Essential pieces for your wardrobe.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Product Card 1 -->
+            <div class="group">
+                <div class="relative overflow-hidden rounded-xl bg-gray-100 dark:bg-white/5 aspect-[3/4]">
+                    <a href="product_detail.html?name=Midnight%20Tuxedo&price=450.00&image=./men_blazergrey.jpg" class="block w-full h-full">
+                        <img alt="Tuxedo Jacket"
+                            class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                            src="./men_blazergrey.jpg" />
+                    </a>
+                    <div
+                        class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-t from-black/60 to-transparent">
+                        <button onclick="event.preventDefault(); event.stopPropagation(); addToCart({name:'Midnight Tuxedo',price:'450.00',image:'./men_blazergrey.jpg',quantity:1,size:'M',maxStock:10})"
+                            class="w-full bg-white text-black py-3 rounded-lg font-medium hover:bg-primary hover:text-white transition-colors flex justify-center items-center gap-2 shadow-lg">
+                            <span class="material-icons text-sm">shopping_cart</span> Add to Cart
+                        </button>
+                    </div>
+                    <button
+                        class="absolute top-3 right-3 p-2 bg-white/80 dark:bg-black/50 rounded-full text-gray-500 hover:text-primary transition-colors opacity-0 group-hover:opacity-100 z-10">
+                        <span class="material-icons text-sm">favorite</span>
+                    </button>
+                </div>
+                <div class="mt-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">Midnight Tuxedo</h3>
+                            <p class="text-sm text-gray-500">Black Tie Collection</p>
+                        </div>
+                        <p class="text-lg font-semibold text-gray-900 dark:text-white">$450.00</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Product Card 2 -->
+            <div class="group">
+                <div class="relative overflow-hidden rounded-xl bg-gray-100 dark:bg-white/5 aspect-[3/4]">
+                    <a href="product_detail.html?name=Linen%20Summer%20Blazer&price=220.00&image=./brown_blazer.jpg" class="block w-full h-full">
+                        <img alt="Casual Linen Blazer"
+                            class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                            src="./brown_blazer.jpg" />
+                    </a>
+                    <div
+                        class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-t from-black/60 to-transparent">
+                        <button onclick="event.preventDefault(); event.stopPropagation(); addToCart({name:'Linen Summer Blazer',price:'220.00',image:'./brown_blazer.jpg',quantity:1,size:'M',maxStock:15})"
+                            class="w-full bg-white text-black py-3 rounded-lg font-medium hover:bg-primary hover:text-white transition-colors flex justify-center items-center gap-2 shadow-lg">
+                            <span class="material-icons text-sm">shopping_cart</span> Add to Cart
+                        </button>
+                    </div>
+                    <button
+                        class="absolute top-3 right-3 p-2 bg-white/80 dark:bg-black/50 rounded-full text-gray-500 hover:text-primary transition-colors opacity-0 group-hover:opacity-100 z-10">
+                        <span class="material-icons text-sm">favorite</span>
+                    </button>
+                </div>
+                <div class="mt-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">Linen Summer Blazer</h3>
+                            <p class="text-sm text-gray-500">Summer Essentials</p>
+                        </div>
+                        <p class="text-lg font-semibold text-gray-900 dark:text-white">$220.00</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Product Card 3 -->
+            <div class="group">
+                <div class="relative overflow-hidden rounded-xl bg-gray-100 dark:bg-white/5 aspect-[3/4]">
+                    <a href="product_detail.html?name=Premium%20Chinos&price=85.00&image=./men%20fashion.jpg" class="block w-full h-full">
+                        <img alt="Cotton Chinos"
+                            class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                            src="./men fashion.jpg" style="object-position: bottom;" />
+                    </a>
+                    <div
+                        class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-t from-black/60 to-transparent">
+                        <button onclick="event.preventDefault(); event.stopPropagation(); addToCart({name:'Premium Chinos',price:'85.00',image:'./men fashion.jpg',quantity:1,size:'M',maxStock:20})"
+                            class="w-full bg-white text-black py-3 rounded-lg font-medium hover:bg-primary hover:text-white transition-colors flex justify-center items-center gap-2 shadow-lg">
+                            <span class="material-icons text-sm">shopping_cart</span> Add to Cart
+                        </button>
+                    </div>
+                    <button
+                        class="absolute top-3 right-3 p-2 bg-white/80 dark:bg-black/50 rounded-full text-gray-500 hover:text-primary transition-colors opacity-0 group-hover:opacity-100 z-10">
+                        <span class="material-icons text-sm">favorite</span>
+                    </button>
+                </div>
+                <div class="mt-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">Premium Chinos</h3>
+                            <p class="text-sm text-gray-500">Smart Casual</p>
+                        </div>
+                        <p class="text-lg font-semibold text-gray-900 dark:text-white">$85.00</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Product Card 4 -->
+            <div class="group">
+                <div class="relative overflow-hidden rounded-xl bg-gray-100 dark:bg-white/5 aspect-[3/4]">
+                    <a href="product_detail.html?name=Modern%20Fit%20Dress%20Shirt&price=55.00&image=./men%20fashion.jpg" class="block w-full h-full">
+                        <img alt="Leather Dress Shirt"
+                            class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                            src="./men fashion.jpg" style="object-position: top;" />
+                    </a>
+                    <div
+                        class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-t from-black/60 to-transparent">
+                        <button onclick="event.preventDefault(); event.stopPropagation(); addToCart({name:'Modern Fit Dress Shirt',price:'55.00',image:'./men fashion.jpg',quantity:1,size:'M',maxStock:25})"
+                            class="w-full bg-white text-black py-3 rounded-lg font-medium hover:bg-primary hover:text-white transition-colors flex justify-center items-center gap-2 shadow-lg">
+                            <span class="material-icons text-sm">shopping_cart</span> Add to Cart
+                        </button>
+                    </div>
+                    <button
+                        class="absolute top-3 right-3 p-2 bg-white/80 dark:bg-black/50 rounded-full text-gray-500 hover:text-primary transition-colors opacity-0 group-hover:opacity-100 z-10">
+                        <span class="material-icons text-sm">favorite</span>
+                    </button>
+                </div>
+                <div class="mt-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">Modern Fit Dress Shirt</h3>
+                            <p class="text-sm text-gray-500">Office Wear</p>
+                        </div>
+                        <p class="text-lg font-semibold text-gray-900 dark:text-white">$55.00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-12 text-center">
+            <button
+                class="px-8 py-3 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 rounded-full hover:border-primary hover:text-primary transition-colors font-medium">
+                Load More Items
+            </button>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-gray-900 dark:bg-black text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Brand Info -->
+                <div class="space-y-4">
+                    <a class="text-2xl font-bold tracking-tighter" href="#">
+                        GENTS<span class="text-primary">.</span>STYLING
+                    </a>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Redefining men's fashion with timeless elegance and modern sophistication.
+                    </p>
+                    <div class="flex space-x-4 pt-2">
+                        <a class="text-gray-400 hover:text-white transition-colors" href="#"><i
+                                class="material-icons text-xl">facebook</i></a>
+                        <a class="text-gray-400 hover:text-white transition-colors" href="#"><i
+                                class="material-icons text-xl">camera_alt</i></a>
+                        <a class="text-gray-400 hover:text-white transition-colors" href="#"><i
+                                class="material-icons text-xl">alternate_email</i></a>
+                    </div>
+                </div>
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">Shop</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a class="hover:text-primary transition-colors" href="#">New Arrivals</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Suits & Blazers</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Accesssories</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Sale</a></li>
+                    </ul>
+                </div>
+                <!-- Support -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">Support</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a class="hover:text-primary transition-colors" href="#">Help Center</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Size Guide</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Shipping Info</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">Stay Dapper</h4>
+                    <p class="text-gray-400 text-sm mb-4">Subscribe to our newsletter for style tips and exclusive
+                        offers.</p>
+                    <div class="flex flex-col gap-3">
+                        <input
+                            class="bg-gray-800 border-none rounded-lg py-3 px-4 text-white placeholder-gray-500 focus:ring-2 focus:ring-primary w-full"
+                            placeholder="Your email address" type="email" />
+                        <button
+                            class="bg-primary hover:bg-white hover:text-primary text-white font-medium py-3 px-4 rounded-lg transition-colors w-full">
+                            Subscribe
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-sm">© 2024 Gents Styling. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="js/cart.js"></script>
+    <script src="js/chat.js"></script>
+</body>
+
+</html>

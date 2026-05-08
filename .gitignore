@@ -1,6 +1,6 @@
 # WhatsApp AI Agent — GentsStyling
 node_modules/
-data/customers.xlsx
-data/followups.xlsx
 .env
 *.log
+.DS_Store
+**/.DS_Store

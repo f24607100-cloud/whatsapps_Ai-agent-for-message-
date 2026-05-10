@@ -23,7 +23,6 @@ const { logDeal }   = require('./dealLogger');
 const { sendText, sendImage, markAsRead } = require('./whatsappSender');
 const { getProductImageUrl, findProduct } = require('./mediaHandler');
 const { transcribeVoiceMessage } = require('./voiceHandler');
-const { startOrderFlow, handleOrderFlowReply } = require('./orderFlow');
 
 // ── GET /webhook — Verification ───────────────────────────────────────────────
 router.get('/', (req, res) => {
@@ -110,47 +109,13 @@ async function handleIncomingMessage(msg, value) {
   const name     = contact?.profile?.name || null;
   if (name) agent.updateCustomerInfo(phone, { name });
 
-  // ── Check if customer is in Order Flow (confirmation/feedback) ──────────────
-  // If yes, handle it there — don't pass to AI
-  const handledByFlow = await handleOrderFlowReply(phone, userText);
-  if (handledByFlow) {
-    console.log(`[webhook] Message handled by orderFlow for ${phone}`);
-    return;
-  }
-
   // ── Process with AI ────────────────────────────────────────────────────────
   const { reply, imagesToSend, dealClosed, dealData } = await agent.processMessage(phone, userText);
 
-  // ── Log deal + Schedule flows ─────────────────────────────────────────────
+  // ── Log deal if closed ─────────────────────────────────────────────────────
   if (dealClosed && dealData) {
     console.log('[webhook] 🎉 Deal closed for', phone, dealData);
     await logDeal(dealData).catch(err => console.error('[webhook] Deal log error:', err));
-
-    // Start order confirmation flow (availability check after delay)
-    startOrderFlow(phone, dealData);
-
-    // DEV MODE: Also send 1-min follow-up with new product offer
-    if (process.env.NODE_ENV === 'development') {
-      const FOLLOW_UP_DELAY = 60 * 1000;
-      console.log(`[webhook] ⏱️ DEV MODE — Promo follow-up scheduled in 1 min for ${phone}`);
-      setTimeout(async () => {
-        try {
-          const kb = await agent.getKnowledge();
-          const customerName = dealData.name?.split(' ')[0] || 'bhai';
-          const newProduct = kb.products.find(p =>
-            !dealData.product?.toLowerCase().includes(p.name?.toLowerCase().split(' ')[0])
-          ) || kb.products[0];
-          const imageUrl = newProduct ? getProductImageUrl(newProduct) : null;
-          const offerMsg =
-            `Salaam ${customerName} bhai! 🎉 Aapki order ke liye shukriya!\n\n` +
-            `Aaj hamare paas ek special offer bhi hai — yeh dekhein! ` +
-            `Sirf limited time ke liye available hai. Interested hain?`;
-          if (imageUrl) { await sendImage(phone, imageUrl, `${newProduct.name} — Special Offer`); await _sleep(1000); }
-          await sendText(phone, offerMsg);
-          console.log(`[webhook] ✅ Promo follow-up sent to ${phone}`);
-        } catch (err) { console.error('[webhook] Promo follow-up error:', err.message); }
-      }, FOLLOW_UP_DELAY);
-    }
   }
 
   // ── Send product images (before text reply) ─────────────────────────────

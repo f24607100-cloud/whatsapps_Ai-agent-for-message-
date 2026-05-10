@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon --ignore 'media/' --ignore 'data/' --ignore 'GentsStyling/' index.js"
   },
   "keywords": ["whatsapp", "ai", "agent", "gents", "styling"],
   "author": "",

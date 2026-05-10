@@ -106,6 +106,19 @@ When the customer confirms an order, respond with:
   AMOUNT: <total amount>
   [/DEAL_CLOSED]
 
+PHONE NUMBER VALIDATION (VERY IMPORTANT):
+- When collecting customer's phone number for delivery, ALWAYS validate:
+  ✅ Must be 11 digits starting with 03 (Pakistani mobile format)
+  ✅ Valid examples: 03001234567, 03211234567, 03451234567
+  ❌ Invalid: 3001234567 (10 digits), 923001234567 (12 digits with country code)
+- If number is wrong, politely ask again:
+  "Bhai, Pakistani mobile number 11 digits ka hota hai — 03XX se shuru hota hai. Dobara likhein please 😊"
+
+ADDRESS CONFIRMATION (VERY IMPORTANT):
+- When customer gives delivery address, ALWAYS include this marker in your reply:
+  [ADDRESS_CONFIRMED: <full address as customer gave it>]
+- Example: "Theek hai! [ADDRESS_CONFIRMED: House 5, Block B, DHA Lahore] Main map check karta hoon, kya yeh sahi address hai?"
+
 Then continue the conversation naturally.
 `;
 }
@@ -200,13 +213,23 @@ async function processMessage(phone, message) {
     if (isDealMsg) session.dealPending = true;
   }
 
+  // ── Parse ADDRESS_CONFIRMED marker ──────────────────────────────────────────
+  let confirmedAddress = null;
+  const addrMatch = rawReply.match(/\[ADDRESS_CONFIRMED:\s*([^\]]+)\]/i);
+  if (addrMatch) {
+    confirmedAddress = addrMatch[1].trim();
+    if (sessions[phone]) sessions[phone].customerInfo.address = confirmedAddress;
+    console.log(`[agent] 📍 Address confirmed for ${phone}: "${confirmedAddress}"`);
+  }
+
   // Strip internal markers from the reply before sending to customer
   let cleanReply = rawReply
     .replace(/\[SEND_IMAGE:[^\]]*\]/gi, '')
     .replace(/\[DEAL_CLOSED\][\s\S]*?\[\/DEAL_CLOSED\]/gi, '')
+    .replace(/\[ADDRESS_CONFIRMED:[^\]]*\]/gi, '')
     .trim();
 
-  return { reply: cleanReply, imagesToSend, dealClosed, dealData };
+  return { reply: cleanReply, imagesToSend, dealClosed, dealData, confirmedAddress };
 }
 
 /**

@@ -23,6 +23,7 @@ const { logDeal }   = require('./dealLogger');
 const { sendText, sendImage, markAsRead } = require('./whatsappSender');
 const { getProductImageUrl, findProduct } = require('./mediaHandler');
 const { transcribeVoiceMessage } = require('./voiceHandler');
+const { getMapImageUrl }        = require('./mapHandler');
 
 // ── GET /webhook — Verification ───────────────────────────────────────────────
 router.get('/', (req, res) => {
@@ -110,7 +111,7 @@ async function handleIncomingMessage(msg, value) {
   if (name) agent.updateCustomerInfo(phone, { name });
 
   // ── Process with AI ────────────────────────────────────────────────────────
-  const { reply, imagesToSend, dealClosed, dealData } = await agent.processMessage(phone, userText);
+  const { reply, imagesToSend, dealClosed, dealData, confirmedAddress } = await agent.processMessage(phone, userText);
 
   // ── Log deal if closed ─────────────────────────────────────────────────────
   if (dealClosed && dealData) {
@@ -133,6 +134,38 @@ async function handleIncomingMessage(msg, value) {
       }
     } else {
       console.warn(`[webhook] No image URL found for product: "${productName}"`);
+    }
+  }
+
+  // ── Send map if address was just confirmed ───────────────────────────────────
+  if (confirmedAddress) {
+    console.log(`[webhook] 📍 Generating map for: "${confirmedAddress}"`);
+    try {
+      const mapResult = await getMapImageUrl(confirmedAddress);
+      if (mapResult) {
+        await _sleep(800);
+        if (mapResult.url) {
+          // Send static map image
+          await sendImage(
+            phone,
+            mapResult.url,
+            `📍 Kya yeh aapka delivery address hai?\n${mapResult.displayName}`
+          );
+        } else {
+          // No image — send Google Maps link as text
+          await sendText(
+            phone,
+            `📍 *Delivery Address Check:*\n${mapResult.displayName}\n\n` +
+            `Google Maps pe check karein:\n${mapResult.googleMapsLink}\n\n` +
+            `Kya yeh bilkul sahi jagah hai? ✅`
+          );
+        }
+        console.log(`[webhook] ✅ Map/link sent to ${phone}`);
+      } else {
+        console.warn(`[webhook] ⚠️ Could not geocode: "${confirmedAddress}"`);
+      }
+    } catch (err) {
+      console.error('[webhook] Map send error:', err.message);
     }
   }
 

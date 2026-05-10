@@ -25,12 +25,8 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-// Serve product images from /media folder
-// Access via: http://localhost:3001/media/brown_blazer.jpg
+// Serve product images and generated maps publicly
 app.use('/media', express.static(path.join(__dirname, 'media')));
-
-// Serve GentsStyling product images (from the website folder)
-// Access via: https://your-ngrok.app/products/brown_blazer.jpg
 app.use('/products', express.static(path.join(__dirname, 'GentsStyling')));
 
 // ── Routes ─────────────────────────────────────────────────────────────────────

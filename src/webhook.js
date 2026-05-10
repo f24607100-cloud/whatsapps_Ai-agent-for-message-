@@ -23,7 +23,6 @@ const { logDeal }   = require('./dealLogger');
 const { sendText, sendImage, markAsRead } = require('./whatsappSender');
 const { getProductImageUrl, findProduct } = require('./mediaHandler');
 const { transcribeVoiceMessage } = require('./voiceHandler');
-const { getMapImageUrl }        = require('./mapHandler');
 
 // ── GET /webhook — Verification ───────────────────────────────────────────────
 router.get('/', (req, res) => {
@@ -137,35 +136,33 @@ async function handleIncomingMessage(msg, value) {
     }
   }
 
-  // ── Send map if address was just confirmed ───────────────────────────────────
+  // ── Send Google Maps link if address was just confirmed ─────────────────────
   if (confirmedAddress) {
-    console.log(`[webhook] 📍 Generating map for: "${confirmedAddress}"`);
+    console.log(`[webhook] 📍 Geocoding address: "${confirmedAddress}"`);
     try {
+      const { getMapImageUrl } = require('./mapHandler');
       const mapResult = await getMapImageUrl(confirmedAddress);
       if (mapResult) {
         await _sleep(800);
-        if (mapResult.url) {
-          // Send static map image
-          await sendImage(
-            phone,
-            mapResult.url,
-            `📍 Kya yeh aapka delivery address hai?\n${mapResult.displayName}`
-          );
-        } else {
-          // No image — send Google Maps link as text
-          await sendText(
-            phone,
-            `📍 *Delivery Address Check:*\n${mapResult.displayName}\n\n` +
-            `Google Maps pe check karein:\n${mapResult.googleMapsLink}\n\n` +
-            `Kya yeh bilkul sahi jagah hai? ✅`
-          );
-        }
-        console.log(`[webhook] ✅ Map/link sent to ${phone}`);
+        await sendText(
+          phone,
+          `📍 *Address Verification*\n\n` +
+          `Maine yeh location find ki:\n` +
+          `*${mapResult.displayName}*\n\n` +
+          `Google Maps pe check karein:\n` +
+          `${mapResult.googleMapsLink}\n\n` +
+          `Kya yeh bilkul aapki sahi jagah hai? ✅\n` +
+          `*Haan* likhein agar sahi hai, ya address dobara likhein agar galat hai.`
+        );
+        console.log(`[webhook] ✅ Google Maps link sent to ${phone}`);
       } else {
-        console.warn(`[webhook] ⚠️ Could not geocode: "${confirmedAddress}"`);
+        // Geocoding failed — just ask to confirm manually
+        await sendText(phone,
+          `📍 Address note kar liya: *${confirmedAddress}*\n\nKya yeh bilkul sahi hai? ✅`
+        );
       }
     } catch (err) {
-      console.error('[webhook] Map send error:', err.message);
+      console.error('[webhook] Map error:', err.message);
     }
   }
 
